@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { Market, PriceCandle, OrderBook, ApiResponse } from '../types/market';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3847/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://ec2-13-126-81-152.ap-south-1.compute.amazonaws.com:3847/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
