@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
-import { BarChart3, Sparkles } from 'lucide-react';
+import { BarChart3, Sparkles, TrendingUp } from 'lucide-react';
 import { SearchBar } from './components/SearchBar';
 import { MarketList } from './components/MarketList';
 import { PriceChart } from './components/PriceChart';
 import { OrderBookView } from './components/OrderBookView';
 import { AIChat } from './components/AIChat';
 import { AIInsightsPage } from './components/AIInsightsPage';
+import { StockDashboard } from './components/StockDashboard';
 import { fetchMarkets, searchMarkets, type Exchange } from './services/api';
 import type { Market } from './types/market';
 import './App.css';
 
-type Tab = 'markets' | 'ai-insights';
+type Tab = 'markets' | 'ai-insights' | 'stocks';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('markets');
@@ -87,6 +88,13 @@ function App() {
               <Sparkles size={18} />
               <span>AI Insights</span>
             </button>
+            <button
+              className={`nav-tab stocks-tab ${activeTab === 'stocks' ? 'active' : ''}`}
+              onClick={() => setActiveTab('stocks')}
+            >
+              <TrendingUp size={18} />
+              <span>Stocks</span>
+            </button>
           </nav>
         </div>
       </header>
@@ -138,6 +146,10 @@ function App() {
 
       {activeTab === 'ai-insights' && (
         <AIInsightsPage selectedMarket={selectedMarket} markets={markets} />
+      )}
+
+      {activeTab === 'stocks' && (
+        <StockDashboard />
       )}
     </div>
   );

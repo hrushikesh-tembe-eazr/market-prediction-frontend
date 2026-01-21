@@ -82,6 +82,10 @@ body {
   color: #fff;
 }
 
+.nav-tab.stocks-tab.active {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
 .nav-tab svg {
   flex-shrink: 0;
 }
