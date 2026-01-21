@@ -573,6 +573,45 @@
   color: #f97316;
 }
 
+.ai-loading-hint {
+  color: #888;
+  font-size: 13px;
+  margin: 0;
+}
+
+.ai-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 60px;
+  color: #ff6b6b;
+  text-align: center;
+}
+
+.ai-error span {
+  font-size: 15px;
+  max-width: 400px;
+}
+
+.ai-error button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.ai-error button:hover {
+  opacity: 0.9;
+}
+
 .ai-results {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 16px;

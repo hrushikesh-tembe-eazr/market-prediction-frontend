@@ -73,6 +73,7 @@ export function StockDashboard() {
   const [selectedStock, setSelectedStock] = useState<StockQuote | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<any>(null);
   const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
 
   // Chat
   const [chatMessages, setChatMessages] = useState<Array<{role: string; content: string}>>([]);
@@ -139,19 +140,36 @@ export function StockDashboard() {
     setSelectedStock(stock);
     setActiveSection('ai');
     setAiLoading(true);
+    setAiError(null);
+    setAiAnalysis(null);
+
+    // Create abort controller for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 45000); // 45 second timeout
 
     try {
       const res = await fetch(`${API_BASE}/api/stocks/ai/analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stock }),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
       const data = await res.json();
 
-      if (data.success) {
+      if (data.success && data.data) {
         setAiAnalysis(data.data);
+      } else {
+        setAiError(data.error?.message || 'Failed to analyze stock. Please try again.');
       }
-    } catch (err) {
+    } catch (err: any) {
+      clearTimeout(timeoutId);
+      if (err.name === 'AbortError') {
+        setAiError('Analysis timed out. Please try again.');
+      } else {
+        setAiError('Failed to analyze stock. Please check your connection and try again.');
+      }
       console.error('Analysis failed:', err);
     } finally {
       setAiLoading(false);
@@ -487,6 +505,15 @@ export function StockDashboard() {
                   <div className="ai-loading">
                     <Loader2 className="spin" size={32} />
                     <span>Analyzing {selectedStock.symbol}...</span>
+                    <p className="ai-loading-hint">This may take up to 30 seconds</p>
+                  </div>
+                ) : aiError ? (
+                  <div className="ai-error">
+                    <AlertTriangle size={32} />
+                    <span>{aiError}</span>
+                    <button onClick={() => analyzeStock(selectedStock)}>
+                      <RefreshCw size={16} /> Try Again
+                    </button>
                   </div>
                 ) : aiAnalysis ? (
                   <div className="ai-results">
