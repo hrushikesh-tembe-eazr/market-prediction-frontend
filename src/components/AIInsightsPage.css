@@ -44,29 +44,39 @@
   width: 100%;
   padding: 14px 16px;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 10px;
-  color: #a0a0c0;
+  color: #c0c0e0;
   cursor: pointer;
   text-align: left;
   transition: all 0.2s;
   margin-bottom: 4px;
 }
 
-.ai-nav-item:hover:not(.disabled) {
+.ai-nav-item:hover:not(.disabled):not(.active) {
   background: rgba(139, 92, 246, 0.1);
   color: white;
+  border-color: rgba(139, 92, 246, 0.2);
 }
 
 .ai-nav-item.active {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.2));
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(99, 102, 241, 0.2));
   color: white;
-  border: 1px solid rgba(139, 92, 246, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.5);
 }
 
 .ai-nav-item.disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
+  color: #666;
+}
+
+.ai-nav-item.disabled .nav-label {
+  color: #666;
+}
+
+.ai-nav-item.disabled .nav-desc {
+  color: #555;
 }
 
 .ai-nav-item svg {

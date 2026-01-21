@@ -103,7 +103,7 @@ interface ExplainData {
 }
 
 export function AIInsightsPage({ selectedMarket, markets }: AIInsightsPageProps) {
-  const [activeTab, setActiveTab] = useState<string>('sentiment');
+  const [activeTab, setActiveTab] = useState<string>('portfolio');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
