@@ -9,8 +9,6 @@ import {
   Target,
   Bell,
   BookOpen,
-  ChevronDown,
-  ChevronUp,
   Loader2,
   Sparkles,
   X
