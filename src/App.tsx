@@ -3,6 +3,7 @@ import { SearchBar } from './components/SearchBar';
 import { MarketList } from './components/MarketList';
 import { PriceChart } from './components/PriceChart';
 import { OrderBookView } from './components/OrderBookView';
+import { AIChat } from './components/AIChat';
 import { fetchMarkets, searchMarkets, type Exchange } from './services/api';
 import type { Market } from './types/market';
 import './App.css';
@@ -13,6 +14,14 @@ function App() {
   const [selectedMarket, setSelectedMarket] = useState<Market | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [aiApiKey, setAiApiKey] = useState<string>(() => {
+    return localStorage.getItem('deepseek_api_key') || '';
+  });
+
+  const handleApiKeyChange = (key: string) => {
+    setAiApiKey(key);
+    localStorage.setItem('deepseek_api_key', key);
+  };
 
   const loadMarkets = async (exch: Exchange) => {
     setLoading(true);
@@ -103,6 +112,12 @@ function App() {
           )}
         </div>
       </div>
+
+      <AIChat
+        selectedMarket={selectedMarket}
+        apiKey={aiApiKey}
+        onApiKeyChange={handleApiKeyChange}
+      />
     </div>
   );
 }
