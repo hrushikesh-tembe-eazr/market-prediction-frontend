@@ -14,14 +14,6 @@ function App() {
   const [selectedMarket, setSelectedMarket] = useState<Market | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [aiApiKey, setAiApiKey] = useState<string>(() => {
-    return localStorage.getItem('deepseek_api_key') || '';
-  });
-
-  const handleApiKeyChange = (key: string) => {
-    setAiApiKey(key);
-    localStorage.setItem('deepseek_api_key', key);
-  };
 
   const loadMarkets = async (exch: Exchange) => {
     setLoading(true);
@@ -113,11 +105,7 @@ function App() {
         </div>
       </div>
 
-      <AIChat
-        selectedMarket={selectedMarket}
-        apiKey={aiApiKey}
-        onApiKeyChange={handleApiKeyChange}
-      />
+      <AIChat selectedMarket={selectedMarket} />
     </div>
   );
 }
