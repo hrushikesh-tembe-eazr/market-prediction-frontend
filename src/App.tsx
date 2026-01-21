@@ -4,6 +4,7 @@ import { MarketList } from './components/MarketList';
 import { PriceChart } from './components/PriceChart';
 import { OrderBookView } from './components/OrderBookView';
 import { AIChat } from './components/AIChat';
+import { AIInsights } from './components/AIInsights';
 import { fetchMarkets, searchMarkets, type Exchange } from './services/api';
 import type { Market } from './types/market';
 import './App.css';
@@ -106,6 +107,7 @@ function App() {
       </div>
 
       <AIChat selectedMarket={selectedMarket} />
+      <AIInsights selectedMarket={selectedMarket} markets={markets} />
     </div>
   );
 }
